@@ -565,6 +565,22 @@ PrefabInstance:
       propertyPath: groundCheckPosition
       value: 
       objectReference: {fileID: 772782252}
+    - target: {fileID: 6636309230701970394, guid: ff07476bab242d240b9a7a6aef670536, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636309230701970394, guid: ff07476bab242d240b9a7a6aef670536, type: 3}
+      propertyPath: m_GravityScale
+      value: 2.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636309230701970394, guid: ff07476bab242d240b9a7a6aef670536, type: 3}
+      propertyPath: m_LinearDamping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6636309230701970394, guid: ff07476bab242d240b9a7a6aef670536, type: 3}
+      propertyPath: m_AngularDamping
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
