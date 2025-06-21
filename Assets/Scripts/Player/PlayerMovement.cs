@@ -6,6 +6,13 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D body;
     private Animator animator;
 
+    public Transform groundCheckPosition;
+    public LayerMask groundLayer;
+
+    private bool isGrounded;
+    private bool jumped;
+    private float jumpPower = 5f;
+
     void Awake()
     {
         body = GetComponent<Rigidbody2D>();
@@ -21,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        CheckIfGrounded();
+        Jump();
     }
 
     void FixedUpdate()
@@ -56,5 +64,26 @@ public class PlayerMovement : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x = direction;
         transform.localScale = scale;
+    }
+
+    void CheckIfGrounded()
+    {
+        isGrounded = Physics2D.Raycast(groundCheckPosition.position, Vector2.down, 0.1f, groundLayer);
+
+        if (isGrounded && jumped)
+        {
+            jumped = false;
+            animator.SetBool("Jump", false);
+        }
+    }
+
+    void Jump()
+    {
+        if (isGrounded && Input.GetKey(KeyCode.Space))
+        {
+            jumped = true;
+            body.linearVelocity = new Vector2(body.linearVelocity.x, jumpPower);
+            animator.SetBool("Jump", true);
+        }
     }
 }
