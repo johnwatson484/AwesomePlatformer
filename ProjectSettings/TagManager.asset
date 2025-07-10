@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ground
+  - Beetle
+  - Bullet
+  - Snail
   layers:
   - Default
   - TransparentFX

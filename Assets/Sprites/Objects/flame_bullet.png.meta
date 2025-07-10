@@ -125,10 +125,10 @@ TextureImporter:
       name: flame_bullet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 31.25
-        height: 32
+        x: 2
+        y: 2
+        width: 28
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: flame_bullet_1
       rect:
         serializedVersion: 2
-        x: 31
-        y: 0
-        width: 31.25
-        height: 32
+        x: 37
+        y: 6
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,10 +169,10 @@ TextureImporter:
       name: flame_bullet_2
       rect:
         serializedVersion: 2
-        x: 62
-        y: 0
-        width: 31.25
-        height: 32
+        x: 68
+        y: 6
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,10 +191,10 @@ TextureImporter:
       name: flame_bullet_3
       rect:
         serializedVersion: 2
-        x: 93
-        y: 0
-        width: 31.25
-        height: 32
+        x: 97
+        y: 4
+        width: 23
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 504b379e814094f42b36443ea6113d94
     internalID: 0
     vertices: []
     indices: 
@@ -227,6 +227,8 @@ TextureImporter:
       flame_bullet_1: 21300002
       flame_bullet_2: 21300004
       flame_bullet_3: 21300006
+      flame_bullet_4: 206489021
+      flame_bullet_5: 1449506196
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

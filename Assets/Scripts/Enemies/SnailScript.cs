@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SnailScript : MonoBehaviour
@@ -13,10 +14,10 @@ public class SnailScript : MonoBehaviour
     private bool canMove;
     private bool stunned;
 
-    public Transform down_Collision;
-    public Transform left_Collision;
-    public Transform right_Collision;
-    public Transform top_Collision;
+    public Transform downCollision;
+    public Transform leftCollision;
+    public Transform rightCollision;
+    public Transform topCollision;
 
     private Vector3 frontOfSnail;
     private Vector3 backOfSnail;
@@ -26,8 +27,8 @@ public class SnailScript : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        frontOfSnail = left_Collision.position;
-        backOfSnail = right_Collision.position;
+        frontOfSnail = leftCollision.position;
+        backOfSnail = rightCollision.position;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -56,44 +57,51 @@ public class SnailScript : MonoBehaviour
 
     void CheckCollision()
     {
-        RaycastHit2D leftHit = Physics2D.Raycast(left_Collision.position, Vector2.left, 0.1f, playerLayer);
-        RaycastHit2D rightHit = Physics2D.Raycast(right_Collision.position, Vector2.right, 0.1f, playerLayer);
-        Collider2D topHit = Physics2D.OverlapCircle(top_Collision.position, 0.2f, playerLayer);
+        RaycastHit2D leftHit = Physics2D.Raycast(leftCollision.position, Vector2.left, 0.1f, playerLayer);
+        RaycastHit2D rightHit = Physics2D.Raycast(rightCollision.position, Vector2.right, 0.1f, playerLayer);
+        Collider2D topHit = Physics2D.OverlapCircle(topCollision.position, 0.2f, playerLayer);
 
-        if (topHit != null && topHit.gameObject.tag == "Player" && !stunned)
+        if (topHit != null && topHit.gameObject.tag == Tags.Player && !stunned)
         {
             topHit.gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(topHit.gameObject.GetComponent<Rigidbody2D>().linearVelocity.x, 7f);
             canMove = false;
             body.linearVelocity = new Vector2(0, 0);
             animator.Play("Stunned");
             stunned = true;
+
+            if (tag == Tags.Beetle)
+            {
+                StartCoroutine(Dead(0.5f));
+            }
         }
 
-        if (leftHit && leftHit.collider.gameObject.tag == "Player")
+        if (leftHit && leftHit.collider.gameObject.tag == Tags.Player)
         {
             if (!stunned)
             {
                 // Apply damage to the player
             }
-            else
+            else if (tag != Tags.Beetle)
             {
                 body.linearVelocity = new Vector2(15f, body.linearVelocity.y);
+                StartCoroutine(Dead(3f));
             }
         }
-        
-        if (rightHit && rightHit.collider.gameObject.tag == "Player")
+
+        if (rightHit && rightHit.collider.gameObject.tag == Tags.Player)
         {
             if (!stunned)
             {
                 // Apply damage to the player
             }
-            else
+            else if (tag != Tags.Beetle)
             {
                 body.linearVelocity = new Vector2(-15f, body.linearVelocity.y);
+                StartCoroutine(Dead(3f));
             }
         }
-        
-        if (!Physics2D.Raycast(down_Collision.position, Vector2.down, 0.1f))
+
+        if (!Physics2D.Raycast(downCollision.position, Vector2.down, 0.1f))
         {
             ChangeDirection();
         }
@@ -108,16 +116,22 @@ public class SnailScript : MonoBehaviour
         if (moveLeft)
         {
             scale.x = Mathf.Abs(scale.x);
-            left_Collision.position = frontOfSnail;
-            right_Collision.position = backOfSnail;
+            leftCollision.position = frontOfSnail;
+            rightCollision.position = backOfSnail;
         }
         else
         {
             scale.x = -Mathf.Abs(scale.x);
-            left_Collision.position = backOfSnail;
-            right_Collision.position = frontOfSnail;
+            leftCollision.position = backOfSnail;
+            rightCollision.position = frontOfSnail;
         }
 
         transform.localScale = scale;
+    }
+    
+    IEnumerator Dead(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        gameObject.SetActive(false);
     }
 }
