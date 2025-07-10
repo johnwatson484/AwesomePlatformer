@@ -12,14 +12,12 @@ public class FireBullet : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         canMove = true;
         StartCoroutine(DisableBullet(5f));
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();
@@ -55,7 +53,7 @@ public class FireBullet : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D target)
     {
-        if (target.gameObject.tag == Tags.Beetle || target.gameObject.tag == Tags.Snail)
+        if (target.gameObject.CompareTag(Tags.Beetle) || target.gameObject.CompareTag(Tags.Snail))
         {
             animator.Play("Explode");
             canMove = false;

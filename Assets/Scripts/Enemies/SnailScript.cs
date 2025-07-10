@@ -31,14 +31,12 @@ public class SnailScript : MonoBehaviour
         backOfSnail = rightCollision.position;
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         moveLeft = true;
         canMove = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (canMove)
@@ -61,7 +59,7 @@ public class SnailScript : MonoBehaviour
         RaycastHit2D rightHit = Physics2D.Raycast(rightCollision.position, Vector2.right, 0.1f, playerLayer);
         Collider2D topHit = Physics2D.OverlapCircle(topCollision.position, 0.2f, playerLayer);
 
-        if (topHit != null && topHit.gameObject.tag == Tags.Player && !stunned)
+        if (topHit != null && topHit.gameObject.CompareTag(Tags.Player) && !stunned)
         {
             topHit.gameObject.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(topHit.gameObject.GetComponent<Rigidbody2D>().linearVelocity.x, 7f);
             canMove = false;
@@ -69,19 +67,19 @@ public class SnailScript : MonoBehaviour
             animator.Play("Stunned");
             stunned = true;
 
-            if (tag == Tags.Beetle)
+            if (CompareTag(Tags.Beetle))
             {
                 StartCoroutine(Dead(0.5f));
             }
         }
 
-        if (leftHit && leftHit.collider.gameObject.tag == Tags.Player)
+        if (leftHit && leftHit.collider.gameObject.CompareTag(Tags.Player))
         {
             if (!stunned)
             {
                 // Apply damage to the player
             }
-            else if (tag != Tags.Beetle)
+            else if (!CompareTag(Tags.Beetle))
             {
                 body.linearVelocity = new Vector2(15f, body.linearVelocity.y);
                 StartCoroutine(Dead(3f));
@@ -94,7 +92,7 @@ public class SnailScript : MonoBehaviour
             {
                 // Apply damage to the player
             }
-            else if (tag != Tags.Beetle)
+            else if (!CompareTag(Tags.Beetle))
             {
                 body.linearVelocity = new Vector2(-15f, body.linearVelocity.y);
                 StartCoroutine(Dead(3f));
